@@ -1,0 +1,37 @@
+PROJETO ARO - VERSÃO SIMPLES
+
+COMO USAR
+1. Abra seu BANCO.FDB no gerenciador do Firebird.
+2. Se ainda não adicionou os campos de bloqueio, execute os dois ALTER TABLE
+   e o COMMIT de BANCO-ARO-CREDITO-FINAL/bloqueio_usuario.sql.
+   Se os campos já existem, não execute os ALTER TABLE novamente.
+3. Confira o caminho do banco e os dados de conexão no início de main.py.
+4. Execute main.py com as mesmas bibliotecas do projeto original:
+   Flask, fdb e flask-bcrypt.
+
+COMO FUNCIONA O BLOQUEIO
+O Python procura a conta pelo e-mail. Quando a senha está errada, soma 1
+no campo TENTATIVAS_LOGIN daquela conta. No terceiro erro, grava 1 em
+BLOQUEADO_LOGIN. O WHERE ID_USUARIO = ? limita a alteração a um usuário.
+Se acertar antes do terceiro erro, o contador volta para zero.
+Para desbloquear, use o UPDATE por ID que está comentado no SQL.
+
+ORGANIZAÇÃO
+main.py: conexão, verificações, cadastro, login, edição e saída.
+Templates: páginas HTML com os formulários.
+Static/css: aparência das páginas e ajustes para celular.
+
+CORREÇÕES
+- Cabeçalho da página inicial com as tags fechadas corretamente.
+- Saída da conta com formulário POST.
+- Acesso ao perfil e à página de saldo pelos links do início.
+- Imagens da landing page usando a classe definida no CSS.
+- Mensagens de cadastro dentro do cartão.
+- HTML indentado e CSS sem comentários repetidos.
+- Cores diretas no CSS e if/else no bloqueio e no cálculo do saldo.
+
+O saldo é apenas uma calculadora local; não grava despesas no banco.
+As telas de empréstimos não foram implementadas neste projeto.
+O servidor atende uma requisição por vez porque usa uma conexão global,
+como na base original. Esta versão é destinada ao estudo local.
+O BANCO.FDB foi preservado; o SQL precisa ser aplicado no seu Firebird.

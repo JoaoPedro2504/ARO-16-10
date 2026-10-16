@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início - ARO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inicio.css') }}">
+</head>
+<body>
+    <!-- Cabeçalho e navegação -->
+    <header class="cabecalho">
+        <a href="{{ url_for('novo') }}">
+            <img src="{{ url_for('static', filename='uploads/logo-horizontal.png') }}" alt="Logo ARO" class="logo">
+        </a>
+        <nav class="menu">
+            <a href="{{ url_for('novo') }}">Início</a>
+            <a href="{{ url_for('saldo_atual') }}">Saldo atual</a>
+            <a href="{{ url_for('pagina_receitas') }}">Receitas</a>
+            <a href="{{ url_for('pagina_despesas') }}">Despesas</a>
+            <a href="{{ url_for('pagina_saldos_mensais') }}">Saldo mensal</a>
+            <a href="{{ url_for('pagina_taxas') }}">Taxas de juros</a>
+            <a href="{{ url_for('editar_usuario') }}">Editar perfil</a>
+        </nav>
+        <!-- A saída precisa de um formulário POST -->
+        <form action="{{ url_for('logout') }}" method="POST">
+            <button type="submit" class="botao-sair">Sair</button>
+        </form>
+    </header>
+
+    <!-- Conteúdo da conta -->
+    <main>
+        <h1>Olá, {{ usuario }}!</h1>
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% for categoria, mensagem in mensagens %}
+                <p class="mensagem {{ categoria }}">{{ mensagem }}</p>
+            {% endfor %}
+        {% endwith %}
+    </main>
+</body>
+</html>
